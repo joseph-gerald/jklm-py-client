@@ -1,0 +1,61 @@
+[project]
+name = "jklm-py-cient" # Required
+version = "0.0.0"  # Required
+description = "Python client for the party game JKLM.fun"  # Optional
+requires-python = ">=3.9"
+license = {file = "LICENSE"}
+keywords = [
+    "JKLM.fun", "game", "client", "python", "async", "websocket"
+    ]
+authors = [
+  {name = "Joseph Gerald", email = "contact@jooo.tech" } # Optional
+]
+
+maintainers = [
+  {name = "Joseph Gerald", email = "contact@jooo.tech" } # Optional
+]
+classifiers = [  # Optional
+  # How mature is this project? Common values are
+  #   3 - Alpha
+  #   4 - Beta
+  #   5 - Production/Stable
+
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Topic :: JKLM :: API Client",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+]
+
+dependencies = [
+      "nodriver",
+      "websocket_client",
+]
+
+#
+[project.urls]
+"Homepage" = "https://github.com/UltrafunkAmsterdam/nodriver"
+"Bug Reports" = "https://github.com/UltrafunkAmsterdam/nodriver/issues"
+"Source" = "https://github.com/UltrafunkAmsterdam/nodriver"
+
+
+[tool.setuptools]
+include-package-data = true
+packages = ["nodriver"]
+
+[build-system]
+requires = ["setuptools>=43.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project.optional-dependencies]
+dev = [
+    "black",
+    "sphinx",
+    "sphinx_markdown_builder",
+    "sphinx_autodoc_typehints",
+    "furo",
+    "pygments",
+]

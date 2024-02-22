@@ -1,5 +1,4 @@
 from websocket import WebSocket
-from threading import Thread
 import nodriver as uc
 import asyncio
 
@@ -7,7 +6,6 @@ async def get_grecaptcha_token():
     browser = await uc.start()
     page = await browser.get('https://jklm.fun')
 
-    
     await page.get_content()
     
     privacyToggle = await page.find("/html/body/div/div[5]/div[2]/div[1]/div/form/div[2]/label[2]")

@@ -1,1 +1,2 @@
 nodriver==0.24rc1
+websocket_client==1.7.0
