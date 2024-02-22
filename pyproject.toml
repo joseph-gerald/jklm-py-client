@@ -23,7 +23,7 @@ classifiers = [ # Optional
 
     "Development Status :: 3 - Alpha",
     "Intended Audience :: Developers",
-    "Topic :: JKLM :: API Client",
+    "Topic :: Internet :: WWW/HTTP :: Session",
     "Programming Language :: Python :: 3.7",
     "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
