@@ -43,8 +43,7 @@ dependencies = [
 
 
 [tool.setuptools]
-include-package-data = true
-packages = find
+package-data = {"sample" = ["*.dat"]}
 
 [build-system]
 requires = ["setuptools>=43.0.0", "wheel"]
