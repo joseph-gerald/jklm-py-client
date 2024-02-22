@@ -1,5 +1,5 @@
 [project]
-name = "jklm-py-cient" # Required
+name = "jklm-client" # Required
 version = "0.0.0"  # Required
 description = "Python client for the party game JKLM.fun"  # Optional
 requires-python = ">=3.9"
@@ -37,25 +37,15 @@ dependencies = [
 
 #
 [project.urls]
-"Homepage" = "https://github.com/UltrafunkAmsterdam/nodriver"
-"Bug Reports" = "https://github.com/UltrafunkAmsterdam/nodriver/issues"
-"Source" = "https://github.com/UltrafunkAmsterdam/nodriver"
+"Homepage" = "https://github.com/joseph-gerald/jklm-py-client"
+"Bug Reports" = "https://github.com/joseph-gerald/jklm-py-client/issues"
+"Source" = "https://github.com/joseph-gerald/jklm-py-client"
 
 
 [tool.setuptools]
 include-package-data = true
-packages = ["nodriver"]
+packages = ["jklm-client"]
 
 [build-system]
 requires = ["setuptools>=43.0.0", "wheel"]
 build-backend = "setuptools.build_meta"
-
-[project.optional-dependencies]
-dev = [
-    "black",
-    "sphinx",
-    "sphinx_markdown_builder",
-    "sphinx_autodoc_typehints",
-    "furo",
-    "pygments",
-]
