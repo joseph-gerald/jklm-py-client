@@ -1,24 +1,24 @@
 [project]
 name = "jklm-client" # Required
-version = "0.0.0"  # Required
-description = "Python client for the party game JKLM.fun"  # Optional
+version = "0.0.0" # Required
+description = "Python client for the party game JKLM.fun" # Optional
 requires-python = ">=3.9"
-license = {file = "LICENSE"}
-keywords = [
-    "JKLM.fun", "game", "client", "python", "async", "websocket"
-    ]
+license = { file = "LICENSE" }
+keywords = ["JKLM.fun", "game", "client", "python", "async", "websocket"]
+
 authors = [
-  {name = "Joseph Gerald", email = "contact@jooo.tech" } # Optional
+    { name = "Joseph Gerald", email = "contact@jooo.tech" }, # Optional
 ]
 
 maintainers = [
-  {name = "Joseph Gerald", email = "contact@jooo.tech" } # Optional
+    { name = "Joseph Gerald", email = "contact@jooo.tech" }, # Optional
 ]
-classifiers = [  # Optional
-  # How mature is this project? Common values are
-  #   3 - Alpha
-  #   4 - Beta
-  #   5 - Production/Stable
+
+classifiers = [ # Optional
+    # How mature is this project? Common values are
+    #   3 - Alpha
+    #   4 - Beta
+    #   5 - Production/Stable
 
     "Development Status :: 3 - Alpha",
     "Intended Audience :: Developers",
@@ -30,10 +30,7 @@ classifiers = [  # Optional
     "Programming Language :: Python :: 3.11",
 ]
 
-dependencies = [
-      "nodriver",
-      "websocket_client",
-]
+dependencies = ["nodriver", "websocket_client"]
 
 #
 [project.urls]
@@ -43,7 +40,7 @@ dependencies = [
 
 
 [tool.setuptools]
-package-data = {"sample" = ["*.dat"]}
+package-data = { "sample" = ["*.dat"] }
 
 [build-system]
 requires = ["setuptools>=43.0.0", "wheel"]
