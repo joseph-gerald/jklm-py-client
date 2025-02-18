@@ -14,16 +14,29 @@ Install via pip
 ```sh
 pip install -U jklm-client
 ```
-
 # Documentation
 1. [Simple Usage](#simple-usage)
 2. [Proxy Usage](#proxy-usage)
 3. [Chat Client](#chat-client)
-4. [Popsauce](#popsauce)
+4. [PopSauce](#pop-sauce)
     - [Challenge Hasher](#challenge-hasher)
     - [Auto-Answer](#auto-answer)
 5. [Bomb Party](#bomb-party)
-    - WIP
+    - Someone make a PR
+
+## PopSauce Answers
+> [!NOTE]  
+> As of **18/02/25** only **9775/9806** *(~99.7%)* of **PopSauce** are indexed due to the nature of scraping them `x log(x)` 
+
+### [popsauce.zip](answers/popsauce.zip)
+> heavy zipped folder of *all the questions, answers and data (image, etc)
+
+### [popsauce_pairs.txt](answers/popsauce_pairs.txt)
+> light weight txt file of all the `challenge_hash:answer` pairings
+
+### [extract_pairs.py](answers/extract_pairs.py)
+> simple script to extract pairs from the unzipped popsauce folder to popsauce_pairs.txt
+
 
 ## Simple Usage
 Here is a simple example of how to connect to a room and join a round *(gamemode agnostic)*
@@ -162,7 +175,7 @@ if __name__ == '__main__':
     main("ABUM")
 ```
 
-# Popsauce
+# Pop Sauce
 
 ## Challenge Hasher
 Here is an example of how to hash a challenge
@@ -517,3 +530,6 @@ def main(room_id):
 if __name__ == '__main__':
     main("ABUM")
 ```
+
+# Bomb Party
+soon™️
