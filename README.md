@@ -397,11 +397,11 @@ def main(room_id):
             answer = answers.get(challenge["hash"])
 
             if answer:
-                print("[!] Answer found in database:", answer)
+                print("[!] Answer is indexed:", answer)
                 session.submit_guess(answer)
                 session.send_chat_message(answer)
             else:
-                print("[!] Answer not found in database")
+                print("[!] Answer was not indexed")
 
             return
 
@@ -427,11 +427,11 @@ def main(room_id):
 
                     answer = answers.get(challenge["hash"])
                     if answer:
-                        print("[!] Answer found in database:", answer)
+                        print("[!] Answer is indexed:", answer)
                         session.submit_guess(answer)
                         session.send_chat_message(answer)
                     else:
-                        print("[!] Answer not found in database")
+                        print("[!] Answer was not indexed")
 
 
             case "endChallenge":
@@ -459,7 +459,7 @@ def main(room_id):
                     print(f"[!] {player['profile']['nickname']} with {points} points guessed {guess}")
 
             case "updatePlayer":
-                event, peer_id, data, online = raw_data
+                event, peer_id, data, online = raw_datfa
 
                 player = list(filter(lambda x: x["profile"]["peerId"] == peer_id, session.game["players"]))[0]
 
