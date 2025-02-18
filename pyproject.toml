@@ -47,7 +47,5 @@ package-data = { "sample" = ["*.dat"] }
 requires = ["setuptools>=43.0.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
-[
-tool.setuptools.packages.find
-]
+[tool.setuptools.packages.find]
 include = ["jklm"]
