@@ -31,7 +31,7 @@ classifiers = [ # Optional
     "Programming Language :: Python :: 3.11",
 ]
 
-dependencies = ["nodriver", "websocket_client"]
+dependencies = ["requests", "websocket_client"]
 
 #
 [project.urls]
@@ -46,3 +46,8 @@ package-data = { "sample" = ["*.dat"] }
 [build-system]
 requires = ["setuptools>=43.0.0", "wheel"]
 build-backend = "setuptools.build_meta"
+
+[
+tool.setuptools.packages.find
+]
+include = ["jklm"]
