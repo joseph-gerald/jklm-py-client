@@ -12,7 +12,7 @@ Flexible JKLM.fun client built for Python 3
 # Installation
 Install via pip
 ```sh
-pip install -U jklm-client
+pip install -U jklm
 ```
 # Documentation
 1. [Simple Usage](#simple-usage)
