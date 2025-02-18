@@ -1,3 +1,5 @@
+![image](https://github.com/user-attachments/assets/321a2c60-9a57-4b7a-b89b-166795fa7711)
+
 # jklm-py-client
 Flexible JKLM.fun client built for Python 3
 
@@ -329,9 +331,10 @@ if __name__ == '__main__':
 ```
 
 ## Auto-Answer
-Here is an example of how to auto-answer challenges
+Here is an example of how to auto-answer and send the answer to the chat
 ```python
 from jklm import JKLM
+import requests
 import time
 
 import hashlib
@@ -347,6 +350,9 @@ challenge = {
     "text": None,
     "hash": None
 }
+
+res = requests.get("https://cdn.jsdelivr.net/gh/joseph-gerald/jklm-py-client@main/answers/popsauce_pairs.txt")
+answers = {x.split(":", 1)[0]: x.split(":", 1)[1].strip() for x in res.text.split("\n") if x}
 
 def sha1(input):
     if isinstance(input, str):
@@ -387,10 +393,15 @@ def main(room_id):
             challenge["image"]["extension"] = extension
 
             print("[?] Challenge Hash:", challenge["hash"])
-            print("[?] Image has been saved to image." + extension)
+            
+            answer = answers.get(challenge["hash"])
 
-            with open("image." + extension, "wb") as f:
-                f.write(raw_data)
+            if answer:
+                print("[!] Answer found in database:", answer)
+                session.submit_guess(answer)
+                session.send_chat_message(answer)
+            else:
+                print("[!] Answer not found in database")
 
             return
 
@@ -414,6 +425,14 @@ def main(room_id):
                     print("[?] Challenge Hash:", challenge["hash"])
                     print("[?]", challenge["text"])
 
+                    answer = answers.get(challenge["hash"])
+                    if answer:
+                        print("[!] Answer found in database:", answer)
+                        session.submit_guess(answer)
+                        session.send_chat_message(answer)
+                    else:
+                        print("[!] Answer not found in database")
+
 
             case "endChallenge":
                 print("\n[!] Challenge Ended")
@@ -426,6 +445,11 @@ def main(room_id):
                 found_answer = data["hasFoundSource"]
                 points = data["points"]
                 elapsed_time = data["elapsedTime"]
+
+                print(f"[!] {peer_id} {data}")
+                
+                if peer_id == session.peer_id:
+                    return
 
                 player = list(filter(lambda x: x["profile"]["peerId"] == peer_id, session.game["players"]))[0]
 
