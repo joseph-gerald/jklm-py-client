@@ -173,6 +173,11 @@ def main(room_id):
             print("[?] Text Challenge:", challenge["prompt"])
             print("[?]", challenge["text"])
             print("[?] Challenge Hash:", challenge["hash"])
+
+    print("\n[!] Chatting is enabled")
+    print("\n[!] Any message without a prefix will be sent as a chat message")
+    print("[!] Prefix your message with ! to send it as a guess")
+
     try:
         while True:
             message = input("")
@@ -180,7 +185,11 @@ def main(room_id):
             if message == "":
                 raise KeyboardInterrupt
 
-            session.send_chat_message(message)
+            if message.startswith("!"):
+                message = message[1:]
+                session.send_guess(message)
+            else:
+                session.send_chat_message(message)
 
             time.sleep(1)
 
@@ -198,4 +207,4 @@ def main(room_id):
         ThisSystem.terminate()
 
 if __name__ == '__main__':
-    main("ABUM")
+    main("CBTT")

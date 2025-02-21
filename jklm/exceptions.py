@@ -18,3 +18,21 @@ class RoomLookupFailedException(Exception):
     def __init__(self, message):
         super().__init__(message)
         self.message = message
+
+class RoomConnectionException(Exception):
+    # Raised when the room lookup fails
+    def __init__(self, message):
+        super().__init__(message)
+        self.message = message
+
+class RoomCreationException(Exception):
+    # Raised when the room creation fails
+    def __init__(self, message):
+        super().__init__(message)
+        self.message = message
+
+class RateLimitException(Exception):
+    # Raised when the user is rate limited
+    def __init__(self, message):
+        super().__init__(message)
+        self.message = message

@@ -8,7 +8,7 @@ import string
 import time
 import json
 
-from .exceptions import BannedFromRoomException, KickedFromRoomException, RoomLookupFailedException, RoomNotFoundException
+from .exceptions import BannedFromRoomException, KickedFromRoomException, RoomLookupFailedException, RoomNotFoundException, RoomConnectionException, RoomCreationException, RateLimitException
 
 import threading
 import logging
@@ -80,6 +80,9 @@ class JKLM:
         # random 16 character token
         self.token = token or ''.join(random.choices(string.ascii_letters + string.digits, k=16))
         self.username = username
+
+        if len(self.username) > 20:
+            raise ValueError("Username must be less than 20 characters")
 
         self.proxy = proxy
 
@@ -164,6 +167,9 @@ class JKLM:
         >>> session.start_room("popsauce", False, "Sigma Oasis")
         """
 
+        if not isinstance(public, bool):
+            raise ValueError("\"public\" must be a boolean")
+
         json = {
             "name": room_name, 
             "isPublic": public,
@@ -181,7 +187,16 @@ class JKLM:
             except:
                 pass
 
-        data = res.json()
+        if (res.status_code == 429):
+            raise RateLimitException("Rate limited: " + res.text)
+
+        if not res:
+            raise RoomCreationException("Failed to create room")
+        
+        try:
+            data = res.json()
+        except:
+            raise RoomCreationException("Failed to create room: " + res.text)
 
         return {
             "url": data["url"],
@@ -245,7 +260,11 @@ class JKLM:
 
         ws.send(f"420{json.dumps(payload)}")
 
-        ws.recv() # 42["setStyleProperties",{}]
+        res = ws.recv() # 42["setStyleProperties",{}]
+
+        if (res == "41"):
+            raise RoomConnectionException("Failed to connect to room (new update?)")
+        
         res = ws.recv() # 430[{"roomEntry":{"roomCode":"YKZA","name":"Guest1405's room","isPublic":false,"gameId":"popsauce","playerCount":1,"chatMode":"enabled","beta":null,"details":"English"},"selfPeerId":0,"selfRoles":["leader"],"scripts":null}]
 
         if (res == "41"):
