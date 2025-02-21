@@ -272,8 +272,6 @@ class JKLM:
             "picture": self.pfp_b64 if self.has_pfp else None,
         }]
 
-        print(f"42{json.dumps(payload)}")
-
         ws.send(f"420{json.dumps(payload)}")
 
         res = ws.recv() # 42["setStyleProperties",{}]
@@ -347,6 +345,23 @@ class JKLM:
         """
 
         self.game_socket.send(f'42["submitGuess","{guess}"]')
+
+    def type(self, word: str, submit: bool):
+        """
+        Type a word for BombParty
+
+        :param str word: The word to type
+        :param bool submit: Whether to submit the word
+
+        :return: None
+
+        :example:
+
+        >>> session.type("cat", True) # submit the word "cat"
+        >>> session.type("ca", False) # type the word "ca" but don't submit
+        """
+
+        self.game_socket.send(f'42["setWord","{word}",{json.dumps(submit)}]')
 
     def open_rules(self):
         """
@@ -594,8 +609,6 @@ class JKLM:
                         self.join_round()
 
                         break
-
-
 
 if __name__ == '__main__':
     pass
