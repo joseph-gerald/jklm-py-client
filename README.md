@@ -15,13 +15,14 @@ Install via pip
 pip install -U jklm
 ```
 # Documentation
-1. [Simple Usage](#simple-usage)
-2. [Proxy Usage](#proxy-usage)
-3. [Chat Client](#chat-client)
-4. [PopSauce](#pop-sauce)
+1. [Make A Room](#make-a-room)
+2. [Simple Usage](#simple-usage)
+3. [Proxy Usage](#proxy-usage)
+4. [Chat Client](#chat-client)
+5. [PopSauce](#pop-sauce)
     - [Challenge Hasher](#challenge-hasher)
     - [Auto-Answer](#auto-answer)
-5. [Bomb Party](#bomb-party)
+6. [Bomb Party](#bomb-party)
     - Someone make a PR
 
 ## PopSauce Answers
@@ -37,6 +38,16 @@ pip install -U jklm
 ### [extract_pairs.py](answers/extract_pairs.py)
 > simple script to extract pairs from the unzipped popsauce folder to popsauce_pairs.txt
 
+## Make A Room
+Here is an example of how to create a room
+```python
+from jklm import JKLM
+
+jklm = JKLM("BOT")
+
+res = jklm.start_room("selector", True, "test")
+print(res) # {'url': 'https://falcon.jklm.fun', 'room_code': 'RNGG'}
+```
 
 ## Simple Usage
 Here is a simple example of how to connect to a room and join a round *(gamemode agnostic)*
@@ -472,7 +483,7 @@ def main(room_id):
                     print(f"[!] {player['profile']['nickname']} with {points} points guessed {guess}")
 
             case "updatePlayer":
-                event, peer_id, data, online = raw_datfa
+                event, peer_id, data, online = raw_data
 
                 player = list(filter(lambda x: x["profile"]["peerId"] == peer_id, session.game["players"]))[0]
 
