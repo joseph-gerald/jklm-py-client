@@ -18,11 +18,13 @@ pip install -U jklm
 1. [Make A Room](#make-a-room)
 2. [Simple Usage](#simple-usage)
 3. [Proxy Usage](#proxy-usage)
-4. [Chat Client](#chat-client)
-5. [PopSauce](#pop-sauce)
+4. [Set A Profile Picture](#set-a-profile-picture)
+5. [Connections (Twitch, Discord)](#connections-twitch-discord)
+6. [Chat Client](#chat-client)
+7. [PopSauce](#pop-sauce)
     - [Challenge Hasher](#challenge-hasher)
     - [Auto-Answer](#auto-answer)
-6. [Bomb Party](#bomb-party)
+8. [Bomb Party](#bomb-party)
     - Someone make a PR
 
 ## PopSauce Answers
@@ -110,6 +112,79 @@ def main(room_id):
 if __name__ == '__main__':
     # Launch bot and join room "ABUM"
     main("ABUM")
+```
+
+## Set A Profile Picture
+Here is an example of how to set a profile picture
+```python
+from jklm import JKLM
+import time
+
+import psutil
+import os
+
+
+def main(room_id):
+    image = open("logo.png", "rb").read() # Try to keep image 128x128
+
+    username = "BOT_" + str(time.time())[-5:]
+    session = JKLM(username, pfp=image)
+
+    try:
+        session.connect(room_id)
+        print("[.] Successfully joined", room_id)
+    except Exception as e:
+        print("[X] Failed to join room:", e)
+        return
+
+    input("")
+    current_system_pid = os.getpid()
+
+    ThisSystem = psutil.Process(current_system_pid)
+    ThisSystem.terminate()
+
+
+if __name__ == '__main__':
+    main("KMPW")
+```
+
+## Connections (Twitch, Discord)
+Here is an example of how to connect to a room using a twitch or discord account
+```python
+from jklm import JKLM
+import time
+
+import psutil
+import os
+
+
+def main(room_id):
+    image = open("logo.png", "rb").read() # Try to keep image 128x128
+
+    username = "BOT_" + str(time.time())[-5:]
+    session = JKLM(username, pfp=image, connection={
+        "service": "twitch", # twitch, discord
+        "username": "jklm_bot", # Isn't validated
+        "token": "YOUR_TOKEN", # Validated
+        "expiration": 0 # Isn't validated
+    })
+
+    try:
+        session.connect(room_id)
+        print("[.] Successfully joined", room_id)
+    except Exception as e:
+        print("[X] Failed to join room:", e)
+        return
+
+    input("")
+    current_system_pid = os.getpid()
+
+    ThisSystem = psutil.Process(current_system_pid)
+    ThisSystem.terminate()
+
+
+if __name__ == '__main__':
+    main("KMPW")
 ```
 
 ## Chat Client

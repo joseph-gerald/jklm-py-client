@@ -3,6 +3,7 @@ import websocket
 
 from enum import Enum
 
+import base64
 import random
 import string
 import time
@@ -59,11 +60,12 @@ class RoomEntry:
         self.room_code = roomCode
 
 class JKLM:
-    def __init__(self, username: str, token: str = None, proxy: dict = None) -> None:
+    def __init__(self, username: str, pfp: bytes = None, connection: dict = None, token: str = None, proxy: dict = None) -> None:
         """
         Initialize the JKLM client
 
         :param str username: The username to use
+        :param bytes pfp: The profile picture to use (default None)
         :param str token: The token to use (default None)
         :param dict proxy: The proxy to use (default None)
 
@@ -80,6 +82,16 @@ class JKLM:
         # random 16 character token
         self.token = token or ''.join(random.choices(string.ascii_letters + string.digits, k=16))
         self.username = username
+
+        self.connection = connection
+        self.has_pfp = pfp is not None
+
+        if self.has_pfp:
+            if (len(pfp) > 10_000):
+                raise ValueError("Profile picture must be less than 10KB")
+
+            self.pfp = pfp
+            self.pfp_b64 = base64.b64encode(pfp).decode("utf-8")
 
         if len(self.username) > 20:
             raise ValueError("Username must be less than 20 characters")
@@ -255,15 +267,24 @@ class JKLM:
             "roomCode": self.room_id,
             "userToken": self.token,
             "nickname": self.username,
-            "language": "en-US"
+            "language": "en-US",
+            "auth": self.connection,
+            "picture": self.pfp_b64 if self.has_pfp else None,
         }]
+
+        print(f"42{json.dumps(payload)}")
 
         ws.send(f"420{json.dumps(payload)}")
 
         res = ws.recv() # 42["setStyleProperties",{}]
-
+        
         if (res == "41"):
             raise RoomConnectionException("Failed to connect to room (new update?)")
+        
+        code, data = parse_socket_io_message(res)
+
+        if (code == "42" and data[0] == "kicked"):
+            raise RoomConnectionException("Failed to connect to room: " + data[1])
         
         res = ws.recv() # 430[{"roomEntry":{"roomCode":"YKZA","name":"Guest1405's room","isPublic":false,"gameId":"popsauce","playerCount":1,"chatMode":"enabled","beta":null,"details":"English"},"selfPeerId":0,"selfRoles":["leader"],"scripts":null}]
 
